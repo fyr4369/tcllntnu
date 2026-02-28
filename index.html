@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<title>台文未來小遊戲</title>
+<title>台文特有種，你是哪一種</title>
 
 <style>
 body {
@@ -35,8 +35,8 @@ button {
 
 <!-- 封面 -->
 <div class="page show" id="page0">
-  <h1>🎮 你適合哪一種台文未來？</h1>
-  <p style="text-align:center;">選課與資源，走出你的台文職涯路線</p>
+  <h1>🎉台文特有種，你是哪一種？🎉</h1>
+  <p style="text-align:center;">快來看看台文系的課程與資源，<br>試試你專屬的台文職涯路線！</p>
   <div style="text-align:center;">
     <button onclick="nextPage(1)">開始遊戲</button>
   </div>
@@ -44,28 +44,87 @@ button {
 
 <!-- 基礎課程 -->
 <div class="page" id="page1">
-  <h2>STEP 1｜選你有興趣的基礎課程</h2>
-  <label><input type="checkbox" onclick="addScore('口語')"> 台語口語表達</label><br>
-  <label><input type="checkbox" onclick="addScore('文學')"> 台語小說與散文</label><br>
-  <label><input type="checkbox" onclick="addScore('文化')"> 台灣文化史</label><br>
+  <h2>STEP 1｜基礎課程</h2>
+  <h3>台文系基礎課程包括文化、語言、文學，你對哪些有興趣呢？<br>選取你有興趣的課程6-10門吧！</h3>
+
+  <div class="course-columns" style="display: flex; gap: 20px;">
+    <!-- 文化欄 -->
+    <div class="column">
+      <h3>文化</h3>
+      <label><input type="checkbox" onclick="addScore('文化')"> 台灣文化史</label><br>
+      <label><input type="checkbox" onclick="addScore('文化')"> 文化研究概論</label><br>
+      <label><input type="checkbox" onclick="addScore('文化')"> 台灣紀錄片</label><br>
+      <label><input type="checkbox" onclick="addScore('文化')"> 台語戲劇與電影</label><br>
+      <label><input type="checkbox" onclick="addScore('文化')"> 台灣流行文化</label><br>
+      <label><input type="checkbox" onclick="addScore('文化')"> 台灣飲食文化</label><br>
+      <label><input type="checkbox" onclick="addScore('文化')"> 多元性別文化</label><br>
+      <label><input type="checkbox" onclick="addScore('文化')"> 台灣與世界文化</label><br>
+    </div>
+
+    <!-- 語言欄 -->
+    <div class="column">
+      <h3>語言</h3>
+      <label><input type="checkbox" onclick="addScore('語言')"> 語言學概論</label><br>
+      <label><input type="checkbox" onclick="addScore('語言')"> 台語的口語表達</label><br>
+      <label><input type="checkbox" onclick="addScore('語言')"> 台語翻譯</label><br>
+      <label><input type="checkbox" onclick="addScore('語言')"> 語料庫入門</label><br>
+      <label><input type="checkbox" onclick="addScore('語言')"> 語音紀錄與田野調查</label><br>
+      <label><input type="checkbox" onclick="addScore('語言')"> 初級客語</label><br>
+      <label><input type="checkbox" onclick="addScore('語言')"> 台灣南島語言</label><br>
+      <label><input type="checkbox" onclick="addScore('語言')"> 初級日語</label><br>
+    </div>
+
+    <!-- 文學欄 -->
+    <div class="column">
+      <h3>文學</h3>
+      <label><input type="checkbox" onclick="addScore('文學')"> 台灣文學史</label><br>
+      <label><input type="checkbox" onclick="addScore('文學')"> 文學概論</label><br>
+      <label><input type="checkbox" onclick="addScore('文學')"> 台灣現代文學選</label><br>
+      <label><input type="checkbox" onclick="addScore('文學')"> 台語詩/散文/小說選</label><br>
+      <label><input type="checkbox" onclick="addScore('文學')"> 台語民間文學選</label><br>
+      <label><input type="checkbox" onclick="addScore('文學')"> 台灣飲食文學</label><br>
+      <label><input type="checkbox" onclick="addScore('文學')"> 台灣後殖民文學</label><br>
+      <label><input type="checkbox" onclick="addScore('文學')"> 文學社會學</label><br>
+    </div>
+  </div>
+
   <button onclick="nextPage(2)">下一步</button>
 </div>
-
 <!-- 進階課程 -->
 <div class="page" id="page2">
   <h2>STEP 2｜進階應用課程</h2>
-  <label><input type="checkbox" onclick="addScore('傳播')"> 語文傳播實作</label><br>
-  <label><input type="checkbox" onclick="addScore('創作')"> 文學改編與創作</label><br>
-  <label><input type="checkbox" onclick="addScore('研究')"> 文化專題研究</label><br>
+  <h3>以下是台文系的「語文傳播與文創應用」等課程，你想從哪些方向應用所學呢？<br>選取你有興趣的課程約5門吧！</h3>
+  <label><input type="checkbox" onclick="addScore('傳播')"> 台灣文化創意產業
+</label><br>
+  <label><input type="checkbox" onclick="addScore('創作')"> 採訪寫作與媒體傳播</label><br>
+  <label><input type="checkbox" onclick="addScore('研究')"> 多媒體台語文創作</label><br>
+  <label><input type="checkbox" onclick="addScore('傳播')"> 台灣文學繪本應用與創作</label><br>
+  <label><input type="checkbox" onclick="addScore('創作')"> 新聞台語</label><br>
+  <label><input type="checkbox" onclick="addScore('研究')"> 職場台語</label><br>
+  <label><input type="checkbox" onclick="addScore('傳播')"> 台語教材教法</label><br>
+  <label><input type="checkbox" onclick="addScore('研究')"> 社區文化資產與當代台灣文化</label><br>
+  <label><input type="checkbox" onclick="addScore('研究')"> 學術閱讀與寫作</label><br>
   <button onclick="nextPage(3)">下一步</button>
 </div>
 
 <!-- 補血星星 -->
 <div class="page" id="page3">
   <h2>⭐ STEP 3｜補血星星（加成資源）</h2>
-  <label><input type="checkbox" onclick="addScore('資訊')"> 資訊類學程</label><br>
-  <label><input type="checkbox" onclick="addScore('教育')"> 教育學程</label><br>
-  <label><input type="checkbox" onclick="addScore('實習')"> 產業實習</label><br>
+  <label><input type="checkbox" onclick="addScore('資訊')"> 修習部分全英語授課 👉鍛鍊英語全方位能力
+</label><br>
+  <label><input type="checkbox" onclick="addScore('教育')"> 赴國外交換 👉拓展國際視野</label><br>
+  <label><input type="checkbox" onclick="addScore('實習')"> 修習教育學程 👉中小學師資培育</label><br>
+  <label><input type="checkbox" onclick="addScore('實習')"> 修習數位相關學程 👉跟進時代潮流具備數位技能</label><br>
+  <label><input type="checkbox" onclick="addScore('實習')"> 修習外語相關學程 👉培育多語能力</label><br>
+  <label><input type="checkbox" onclick="addScore('實習')"> 申請研究補助 👉培養學術研究能力</label><br>
+  <label><input type="checkbox" onclick="addScore('實習')"> 申請讀書會補助 👉增進團隊合作與自主學習風氣</label><br>
+  <label><input type="checkbox" onclick="addScore('實習')"> 擔任研究助理 👉學習資料收集與初步分析</label><br>
+  <label><input type="checkbox" onclick="addScore('實習')"> 考取台語檢定 👉確保台語專業到手</label><br>
+  <label><input type="checkbox" onclick="addScore('實習')"> 產業實習-廣播電台</label><br>
+  <label><input type="checkbox" onclick="addScore('實習')"> 產業實習-公視台語台</label><br>
+  <label><input type="checkbox" onclick="addScore('實習')"> 產業實習-電影公司</label><br>
+  <label><input type="checkbox" onclick="addScore('實習')"> 產業實習-出版業</label><br>
+  <label><input type="checkbox" onclick="addScore('實習')"> 產業實習-博物館</label><br>
   <button onclick="showResult()">看結果</button>
 </div>
 
