@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>台文未來小遊戲</title>
+
+<style>
+body {
+  background-color: #f7f3ee;
+  font-family: "Noto Sans TC", sans-serif;
+}
+.page {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  display: none;
+  background: white;
+  border-radius: 10px;
+}
+.page h1, .page h2 {
+  text-align: center;
+}
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+.show {
+  display: block;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 封面 -->
+<div class="page show" id="page0">
+  <h1>🎮 你適合哪一種台文未來？</h1>
+  <p style="text-align:center;">選課與資源，走出你的台文職涯路線</p>
+  <div style="text-align:center;">
+    <button onclick="nextPage(1)">開始遊戲</button>
+  </div>
+</div>
+
+<!-- 基礎課程 -->
+<div class="page" id="page1">
+  <h2>STEP 1｜選你有興趣的基礎課程</h2>
+  <label><input type="checkbox" onclick="addScore('口語')"> 台語口語表達</label><br>
+  <label><input type="checkbox" onclick="addScore('文學')"> 台語小說與散文</label><br>
+  <label><input type="checkbox" onclick="addScore('文化')"> 台灣文化史</label><br>
+  <button onclick="nextPage(2)">下一步</button>
+</div>
+
+<!-- 進階課程 -->
+<div class="page" id="page2">
+  <h2>STEP 2｜進階應用課程</h2>
+  <label><input type="checkbox" onclick="addScore('傳播')"> 語文傳播實作</label><br>
+  <label><input type="checkbox" onclick="addScore('創作')"> 文學改編與創作</label><br>
+  <label><input type="checkbox" onclick="addScore('研究')"> 文化專題研究</label><br>
+  <button onclick="nextPage(3)">下一步</button>
+</div>
+
+<!-- 補血星星 -->
+<div class="page" id="page3">
+  <h2>⭐ STEP 3｜補血星星（加成資源）</h2>
+  <label><input type="checkbox" onclick="addScore('資訊')"> 資訊類學程</label><br>
+  <label><input type="checkbox" onclick="addScore('教育')"> 教育學程</label><br>
+  <label><input type="checkbox" onclick="addScore('實習')"> 產業實習</label><br>
+  <button onclick="showResult()">看結果</button>
+</div>
+
+<!-- 結果 -->
+<div class="page" id="page4">
+  <h2>🎉 你的台文未來角色</h2>
+  <p id="result"></p>
+  <div style="text-align:center;">
+    <button onclick="location.reload()">重新玩一次</button>
+  </div>
+</div>
+
+<script>
+// 角色分數（你之後只需要改這裡）
+let score = {
+  傳播型: 0,
+  創作型: 0,
+  教育型: 0,
+  研究型: 0
+};
+
+// 加分規則（最重要的地方）
+function addScore(option) {
+  if(option === "口語"){
+    score.傳播型 += 3;
+    score.教育型 += 1;
+  }
+  if(option === "文學"){
+    score.創作型 += 3;
+  }
+  if(option === "文化"){
+    score.研究型 += 3;
+  }
+  if(option === "傳播"){
+    score.傳播型 += 2;
+  }
+  if(option === "創作"){
+    score.創作型 += 2;
+  }
+  if(option === "研究"){
+    score.研究型 += 2;
+  }
+  if(option === "資訊"){
+    score.創作型 += 1;
+    score.傳播型 += 1;
+  }
+  if(option === "教育"){
+    score.教育型 += 3;
+  }
+  if(option === "實習"){
+    score.傳播型 += 2;
+    score.創作型 += 1;
+  }
+}
+
+// 換頁
+function nextPage(n){
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("show"));
+  document.getElementById("page"+n).classList.add("show");
+}
+
+// 顯示結果
+function showResult(){
+  nextPage(4);
+  let sorted = Object.entries(score).sort((a,b)=>b[1]-a[1]);
+  document.getElementById("result").innerHTML =
+    "🥇 " + sorted[0][0] + "<br>✨ 你也可能成為：" + sorted[1][0];
+}
+</script>
+
+</body>
+</html>
