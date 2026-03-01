@@ -1,198 +1,240 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="UTF-8">
-<title>台文特有種，你是哪一種</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>台文特有種，你是哪一種</title>
+    <style>
+        /* 基礎設定：確保間距計算正確 */
+        * { box-sizing: border-box; }
 
-<style>
-body {
-  background-color: #f7f3ee;
-  font-family: "Noto Sans TC", sans-serif;
-}
-.page {
-  max-width: 600px;
-  margin: 40px auto;
-  padding: 20px;
-  display: none;
-  background: white;
-  border-radius: 10px;
-}
-.page h1, .page h2 {
-  text-align: center;
-}
-button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
-}
-.show {
-  display: block;
-}
-</style>
+        body { 
+            background-color: #f7f3ee; 
+            font-family: "Noto Sans TC", sans-serif; 
+            line-height: 1.6; 
+            color: #333; 
+            margin: 0; 
+            padding: 10px; 
+        }
+
+        /* 響應式容器：電腦端 800px，手機端自動縮放 */
+        .page { 
+            max-width: 800px; 
+            width: 95%;
+            margin: 20px auto; 
+            padding: 30px; 
+            display: none; 
+            background: white; 
+            border-radius: 15px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+        }
+
+        .page h1, .page h2, .page h3 { text-align: center; color: #4a4a4a; }
+        
+        /* 標題字體響應式調整 */
+        h1 { font-size: 1.8rem; }
+        h2 { font-size: 1.5rem; }
+
+        .show { display: block; animation: fadeIn 0.4s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .columns { display: flex; gap: 20px; flex-wrap: wrap; }
+        .column { flex: 1; min-width: 250px; background: #fffaf0; padding: 15px; border-radius: 10px; }
+
+        /* 選項與間距：保持你原始碼的設定 */
+        label { display: block; margin: 8px 0; cursor: pointer; font-size: 15px; }
+        label:hover { color: #8b4513; }
+
+        /* 按鈕更新：圓角形狀與浮動效果 */
+        button { 
+            display: inline-block; 
+            margin: 10px; 
+            padding: 12px 30px; 
+            font-size: 16px; 
+            font-weight: bold;
+            cursor: pointer; 
+            border: none; 
+            border-radius: 50px; /* 圓角梭形 */
+            background-color: #8b4513; 
+            color: white; 
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* 按鈕浮動效果：滑鼠移入時上移並加深陰影 */
+        button:hover { 
+            background-color: #a0522d; 
+            transform: translateY(-3px); 
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        /* 按鈕點擊感 */
+        button:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-container { text-align: center; margin-top: 20px; }
+        #result-box { background: #fdf5e6; padding: 20px; border-radius: 10px; margin-top: 20px; border: 1px solid #e6dccf; }
+
+        /* 手機端微調：確保內容不擁擠 */
+        @media (max-width: 600px) {
+            .page { padding: 20px; margin: 10px auto; }
+            .column { min-width: 100%; }
+            button { width: 80%; } /* 手機端按鈕稍微加寬好按 */
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- 封面 -->
 <div class="page show" id="page0">
-  <h1>🎉台文特有種，你是哪一種？🎉</h1>
-  <p style="text-align:center;">快來看看台文系的課程與資源，<br>試試你專屬的台文職涯路線！</p>
-  <div style="text-align:center;">
-    <button onclick="nextPage(1)">開始遊戲</button>
-  </div>
+    <h1>🎉 台文特有種，你是哪一種？ 🎉</h1>
+    <p style="text-align:center; font-size: 1.2em;">快來看看台文系的課程與資源，<br>發現你專屬的台文職涯路線！</p>
+    <div class="btn-container">
+        <button onclick="nextPage(1)">開始測驗</button>
+    </div>
 </div>
 
-<!-- 基礎課程 -->
 <div class="page" id="page1">
-  <h2>STEP 1｜基礎課程</h2>
-  <h3>台文系基礎課程包括文化、語言、文學，你對哪些有興趣呢？<br>選取你有興趣的課程6-10門吧！</h3>
-
-  <div class="course-columns" style="display: flex; gap: 20px;">
-    <!-- 文化欄 -->
-    <div class="column">
-      <h3>文化</h3>
-      <label><input type="checkbox" onclick="addScore('文化')"> 台灣文化史</label><br>
-      <label><input type="checkbox" onclick="addScore('文化')"> 文化研究概論</label><br>
-      <label><input type="checkbox" onclick="addScore('文化')"> 台灣紀錄片</label><br>
-      <label><input type="checkbox" onclick="addScore('文化')"> 台語戲劇與電影</label><br>
-      <label><input type="checkbox" onclick="addScore('文化')"> 台灣流行文化</label><br>
-      <label><input type="checkbox" onclick="addScore('文化')"> 台灣飲食文化</label><br>
-      <label><input type="checkbox" onclick="addScore('文化')"> 多元性別文化</label><br>
-      <label><input type="checkbox" onclick="addScore('文化')"> 台灣與世界文化</label><br>
+    <h2>STEP 1｜基礎課程</h2>
+    <p style="text-align:center;">台文系基礎課程包括文化、語言、文學，你對哪些有興趣呢？<br>選取你有興趣的課程吧！(6~8門)</p>
+    <div class="columns">
+        <div class="column">
+            <h3>🏛️ 文化</h3>
+            <label><input type="checkbox" data-score='{"R1":2,"R2":2,"R3":2,"R4":2,"R5":2,"R6":3,"R7":2}'> 台灣文化史</label>
+            <label><input type="checkbox" data-score='{"R1":3,"R2":1,"R3":1,"R4":2,"R5":1,"R6":3,"R7":1}'> 文化研究概論</label>
+            <label><input type="checkbox" data-score='{"R1":1,"R2":1,"R3":2,"R4":1,"R5":1,"R6":2,"R7":1}'> 台灣紀錄片</label>
+            <label><input type="checkbox" data-score='{"R1":1,"R2":2,"R3":1,"R4":1,"R5":2,"R6":1,"R7":1}'> 台語戲劇與電影</label>
+            <label><input type="checkbox" data-score='{"R1":1,"R2":1,"R3":2,"R4":3,"R5":1,"R6":2,"R7":2}'> 台灣流行文化</label>
+            <label><input type="checkbox" data-score='{"R1":1,"R2":1,"R3":1,"R4":1,"R5":1,"R6":1,"R7":1}'> 台灣飲食文化</label>
+            <label><input type="checkbox" data-score='{"R1":1,"R2":1,"R3":1,"R4":1,"R5":1,"R6":1,"R7":1}'> 多元性別文化</label>
+            <label><input type="checkbox" data-score='{"R1":2,"R2":1,"R3":1,"R4":1,"R5":1,"R6":2,"R7":3}'> 台灣與世界文化</label>
+        </div>
+        <div class="column">
+            <h3>🗣️ 語言</h3>
+            <label><input type="checkbox" data-score='{"R1":3,"R2":2,"R3":3,"R4":1,"R5":0,"R6":1,"R7":1}'> 語言學概論</label>
+            <label><input type="checkbox" data-score='{"R1":1,"R2":3,"R3":3,"R4":1,"R5":1,"R6":2,"R7":1}'> 台語的口語表達</label>
+            <label><input type="checkbox" data-score='{"R1":2,"R2":2,"R3":3,"R4":2,"R5":1,"R6":1,"R7":1}'> 台語翻譯</label>
+            <label><input type="checkbox" data-score='{"R1":3,"R2":1,"R3":0,"R4":0,"R5":0,"R6":0,"R7":0}'> 語料庫入門</label>
+            <label><input type="checkbox" data-score='{"R1":3,"R2":1,"R3":1,"R4":0,"R5":0,"R6":0,"R7":0}'> 語音紀錄與田野調查</label>
+            <label><input type="checkbox" data-score='{"R1":1,"R2":2,"R3":1,"R4":1,"R5":0,"R6":0,"R7":0}'> 初級客語</label>
+            <label><input type="checkbox" data-score='{"R1":1,"R2":1,"R3":0,"R4":1,"R5":0,"R6":0,"R7":0}'> 台灣南島語言</label>
+            <label><input type="checkbox" data-score='{"R1":1,"R2":1,"R3":0,"R4":1,"R5":0,"R6":1,"R7":3}'> 初級日語</label>
+        </div>
+        <div class="column">
+            <h3>📖 文學</h3>
+            <label><input type="checkbox" data-score='{"R1":2,"R2":2,"R3":2,"R4":2,"R5":3,"R6":3,"R7":2}'> 台灣文學史</label>
+            <label><input type="checkbox" data-score='{"R1":3,"R2":1,"R3":1,"R4":1,"R5":3,"R6":2,"R7":1}'> 文學概論</label>
+            <label><input type="checkbox" data-score='{"R1":2,"R2":1,"R3":1,"R4":2,"R5":3,"R6":1,"R7":1}'> 台灣現代文學選</label>
+            <label><input type="checkbox" data-score='{"R1":1,"R2":3,"R3":0,"R4":1,"R5":2,"R6":0,"R7":0}'> 台語詩/散文/小說選</label>
+            <label><input type="checkbox" data-score='{"R1":1,"R2":3,"R3":1,"R4":1,"R5":2,"R6":1,"R7":1}'> 台語民間文學選</label>
+            <label><input type="checkbox" data-score='{"R1":1,"R2":0,"R3":0,"R4":1,"R5":1,"R6":1,"R7":0}'> 台灣飲食文學</label>
+            <label><input type="checkbox" data-score='{"R1":2,"R2":0,"R3":1,"R4":1,"R5":2,"R6":1,"R7":1}'> 台灣後殖民文學</label>
+            <label><input type="checkbox" data-score='{"R1":3,"R2":0,"R3":0,"R4":2,"R5":2,"R6":2,"R7":1}'> 文學社會學</label>
+        </div>
     </div>
-
-    <!-- 語言欄 -->
-    <div class="column">
-      <h3>語言</h3>
-      <label><input type="checkbox" onclick="addScore('語言')"> 語言學概論</label><br>
-      <label><input type="checkbox" onclick="addScore('語言')"> 台語的口語表達</label><br>
-      <label><input type="checkbox" onclick="addScore('語言')"> 台語翻譯</label><br>
-      <label><input type="checkbox" onclick="addScore('語言')"> 語料庫入門</label><br>
-      <label><input type="checkbox" onclick="addScore('語言')"> 語音紀錄與田野調查</label><br>
-      <label><input type="checkbox" onclick="addScore('語言')"> 初級客語</label><br>
-      <label><input type="checkbox" onclick="addScore('語言')"> 台灣南島語言</label><br>
-      <label><input type="checkbox" onclick="addScore('語言')"> 初級日語</label><br>
+    <div class="btn-container">
+        <button onclick="nextPage(0)">上一步</button>
+        <button onclick="nextPage(2)">下一步</button>
     </div>
-
-    <!-- 文學欄 -->
-    <div class="column">
-      <h3>文學</h3>
-      <label><input type="checkbox" onclick="addScore('文學')"> 台灣文學史</label><br>
-      <label><input type="checkbox" onclick="addScore('文學')"> 文學概論</label><br>
-      <label><input type="checkbox" onclick="addScore('文學')"> 台灣現代文學選</label><br>
-      <label><input type="checkbox" onclick="addScore('文學')"> 台語詩/散文/小說選</label><br>
-      <label><input type="checkbox" onclick="addScore('文學')"> 台語民間文學選</label><br>
-      <label><input type="checkbox" onclick="addScore('文學')"> 台灣飲食文學</label><br>
-      <label><input type="checkbox" onclick="addScore('文學')"> 台灣後殖民文學</label><br>
-      <label><input type="checkbox" onclick="addScore('文學')"> 文學社會學</label><br>
-    </div>
-  </div>
-
-  <button onclick="nextPage(2)">下一步</button>
 </div>
-<!-- 進階課程 -->
+
 <div class="page" id="page2">
-  <h2>STEP 2｜進階應用課程</h2>
-  <h3>以下是台文系的「語文傳播與文創應用」等課程，你想從哪些方向應用所學呢？<br>選取你有興趣的課程約5門吧！</h3>
-  <label><input type="checkbox" onclick="addScore('傳播')"> 台灣文化創意產業
-</label><br>
-  <label><input type="checkbox" onclick="addScore('創作')"> 採訪寫作與媒體傳播</label><br>
-  <label><input type="checkbox" onclick="addScore('研究')"> 多媒體台語文創作</label><br>
-  <label><input type="checkbox" onclick="addScore('傳播')"> 台灣文學繪本應用與創作</label><br>
-  <label><input type="checkbox" onclick="addScore('創作')"> 新聞台語</label><br>
-  <label><input type="checkbox" onclick="addScore('研究')"> 職場台語</label><br>
-  <label><input type="checkbox" onclick="addScore('傳播')"> 台語教材教法</label><br>
-  <label><input type="checkbox" onclick="addScore('研究')"> 社區文化資產與當代台灣文化</label><br>
-  <label><input type="checkbox" onclick="addScore('研究')"> 學術閱讀與寫作</label><br>
-  <button onclick="nextPage(3)">下一步</button>
+    <h2>STEP 2｜進階應用課程</h2>
+    <p style="text-align:center;">以下是台文系的「語文傳播與文創應用」等課程，你想從哪些方向應用所學呢？<br>選取你有興趣的課程吧！(3~4門)</p>
+    <div style="max-width: 500px; margin: 0 auto;">
+        <label><input type="checkbox" data-score='{"R1":0,"R2":0,"R3":3,"R4":7,"R5":0,"R6":0,"R7":0}'> 台灣文化創意產業</label>
+        <label><input type="checkbox" data-score='{"R1":0,"R2":0,"R3":7,"R4":3,"R5":3,"R6":3,"R7":3}'> 採訪寫作與媒體傳播</label>
+        <label><input type="checkbox" data-score='{"R1":0,"R2":3,"R3":3,"R4":3,"R5":7,"R6":3,"R7":3}'> 多媒體台語文創作</label>
+        <label><input type="checkbox" data-score='{"R1":0,"R2":0,"R3":0,"R4":3,"R5":7,"R6":0,"R7":0}'> 台灣文學繪本應用與創作</label>
+        <label><input type="checkbox" data-score='{"R1":0,"R2":0,"R3":7,"R4":0,"R5":0,"R6":0,"R7":3}'> 新聞台語</label>
+        <label><input type="checkbox" data-score='{"R1":0,"R2":3,"R3":7,"R4":0,"R5":0,"R6":0,"R7":0}'> 職場台語</label>
+        <label><input type="checkbox" data-score='{"R1":0,"R2":7,"R3":0,"R4":0,"R5":0,"R6":0,"R7":0}'> 台語教材教法</label>
+        <label><input type="checkbox" data-score='{"R1":3,"R2":0,"R3":0,"R4":3,"R5":0,"R6":7,"R7":0}'> 社區文化資產與當代台灣文化</label>
+        <label><input type="checkbox" data-score='{"R1":7,"R2":0,"R3":0,"R4":0,"R5":0,"R6":3,"R7":3}'> 學術閱讀與寫作</label>
+        <label><input type="checkbox" data-score='{"R1":3,"R2":0,"R3":0,"R4":0,"R5":0,"R6":0,"R7":7}'> 英文台灣文獻</label>
+    </div>
+    <div class="btn-container">
+        <button onclick="nextPage(1)">上一步</button>
+        <button onclick="nextPage(3)">下一步</button>
+    </div>
 </div>
 
-<!-- 補血星星 -->
 <div class="page" id="page3">
-  <h2>⭐ STEP 3｜補血星星（加成資源）</h2>
-  <label><input type="checkbox" onclick="addScore('資訊')"> 修習部分全英語授課 👉鍛鍊英語全方位能力
-</label><br>
-  <label><input type="checkbox" onclick="addScore('教育')"> 赴國外交換 👉拓展國際視野</label><br>
-  <label><input type="checkbox" onclick="addScore('實習')"> 修習教育學程 👉中小學師資培育</label><br>
-  <label><input type="checkbox" onclick="addScore('實習')"> 修習數位相關學程 👉跟進時代潮流具備數位技能</label><br>
-  <label><input type="checkbox" onclick="addScore('實習')"> 修習外語相關學程 👉培育多語能力</label><br>
-  <label><input type="checkbox" onclick="addScore('實習')"> 申請研究補助 👉培養學術研究能力</label><br>
-  <label><input type="checkbox" onclick="addScore('實習')"> 申請讀書會補助 👉增進團隊合作與自主學習風氣</label><br>
-  <label><input type="checkbox" onclick="addScore('實習')"> 擔任研究助理 👉學習資料收集與初步分析</label><br>
-  <label><input type="checkbox" onclick="addScore('實習')"> 考取台語檢定 👉確保台語專業到手</label><br>
-  <label><input type="checkbox" onclick="addScore('實習')"> 產業實習-廣播電台</label><br>
-  <label><input type="checkbox" onclick="addScore('實習')"> 產業實習-公視台語台</label><br>
-  <label><input type="checkbox" onclick="addScore('實習')"> 產業實習-電影公司</label><br>
-  <label><input type="checkbox" onclick="addScore('實習')"> 產業實習-出版業</label><br>
-  <label><input type="checkbox" onclick="addScore('實習')"> 產業實習-博物館</label><br>
-  <button onclick="showResult()">看結果</button>
+    <h2>STEP 3｜外加資源 (加值星星)</h2>
+    <p style="text-align:center;">台師大和台文系提供眾多資源，大學四年你最不想錯過哪些機會呢？(最多選3項)</p>
+    <div style="max-width: 500px; margin: 0 auto;">
+        <label><input type="checkbox" data-score='{"R1":5,"R2":0,"R3":0,"R4":0,"R5":0,"R6":3,"R7":8}'> 修習幾門全英語授課</label>
+        <label><input type="checkbox" data-score='{"R1":5,"R2":0,"R3":3,"R4":3,"R5":3,"R6":3,"R7":8}'> 赴國外交換</label>
+        <label><input type="checkbox" data-score='{"R1":0,"R2":8,"R3":0,"R4":0,"R5":0,"R6":3,"R7":0}'> 修習教育學程</label>
+        <label><input type="checkbox" data-score='{"R1":0,"R2":3,"R3":5,"R4":8,"R5":3,"R6":3,"R7":3}'> 修習數位相關學程</label>
+        <label><input type="checkbox" data-score='{"R1":8,"R2":0,"R3":0,"R4":0,"R5":0,"R6":5,"R7":0}'> 申請研究補助</label>
+        <label><input type="checkbox" data-score='{"R1":0,"R2":8,"R3":5,"R4":0,"R5":0,"R6":0,"R7":0}'> 考取台語檢定</label>
+        <label><input type="checkbox" data-score='{"R1":0,"R2":0,"R3":0,"R4":3,"R5":8,"R6":0,"R7":0}'> 參加校內外文學獎</label>
+        <label><input type="checkbox" data-score='{"R1":0,"R2":0,"R3":8,"R4":5,"R5":0,"R6":0,"R7":3}'> 產業實習-電視台、廣播電台</label>
+        <label><input type="checkbox" data-score='{"R1":0,"R2":0,"R3":5,"R4":3,"R5":5,"R6":0,"R7":0}'> 產業實習-電影編導公司</label>
+        <label><input type="checkbox" data-score='{"R1":0,"R2":3,"R3":0,"R4":8,"R5":5,"R6":3,"R7":0}'> 產業實習-出版業</label>
+        <label><input type="checkbox" data-score='{"R1":5,"R2":3,"R3":0,"R4":3,"R5":0,"R6":8,"R7":3}'> 產業實習-博物館</label>
+    </div>
+    <div class="btn-container">
+        <button onclick="nextPage(2)">上一步</button>
+        <button onclick="showResult()">看結果</button>
+    </div>
 </div>
 
-<!-- 結果 -->
 <div class="page" id="page4">
-  <h2>🎉 你的台文未來角色</h2>
-  <p id="result"></p>
-  <div style="text-align:center;">
-    <button onclick="location.reload()">重新玩一次</button>
-  </div>
+    <h2>🎉 你的台文未來角色</h2>
+    <div id="result-box">
+        <p id="result" style="text-align:center; font-size: 20px; font-weight: bold; color: #8b4513;"></p>
+    </div>
+    <div class="btn-container">
+        <button onclick="location.reload()">再玩一次</button>
+    </div>
 </div>
 
 <script>
-// 角色分數（你之後只需要改這裡）
-let score = {
-  傳播型: 0,
-  創作型: 0,
-  教育型: 0,
-  研究型: 0
-};
+    const jobNames = {
+        "R1": "學術研究",
+        "R2": "台語文教育",
+        "R3": "語文媒體傳播",
+        "R4": "文化創意行銷",
+        "R5": "文藝內容創作",
+        "R6": "文史推廣與文化行政",
+        "R7": "國際傳播交流"
+    };
 
-// 加分規則（最重要的地方）
-function addScore(option) {
-  if(option === "口語"){
-    score.傳播型 += 3;
-    score.教育型 += 1;
-  }
-  if(option === "文學"){
-    score.創作型 += 3;
-  }
-  if(option === "文化"){
-    score.研究型 += 3;
-  }
-  if(option === "傳播"){
-    score.傳播型 += 2;
-  }
-  if(option === "創作"){
-    score.創作型 += 2;
-  }
-  if(option === "研究"){
-    score.研究型 += 2;
-  }
-  if(option === "資訊"){
-    score.創作型 += 1;
-    score.傳播型 += 1;
-  }
-  if(option === "教育"){
-    score.教育型 += 3;
-  }
-  if(option === "實習"){
-    score.傳播型 += 2;
-    score.創作型 += 1;
-  }
-}
+    let scores = { R1:0, R2:0, R3:0, R4:0, R5:0, R6:0, R7:0 };
 
-// 換頁
-function nextPage(n){
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("show"));
-  document.getElementById("page"+n).classList.add("show");
-}
+    document.querySelectorAll("input[type=checkbox]").forEach(cb => {
+        cb.addEventListener("change", function() {
+            let data = JSON.parse(this.dataset.score);
+            for (let key in data) {
+                if (this.checked) {
+                    scores[key] += data[key];
+                } else {
+                    scores[key] -= data[key];
+                }
+            }
+        });
+    });
 
-// 顯示結果
-function showResult(){
-  nextPage(4);
-  let sorted = Object.entries(score).sort((a,b)=>b[1]-a[1]);
-  document.getElementById("result").innerHTML =
-    "🥇 " + sorted[0][0] + "<br>✨ 你也可能成為：" + sorted[1][0];
-}
+    function nextPage(n) {
+        document.querySelectorAll(".page").forEach(p => p.classList.remove("show"));
+        document.getElementById("page" + n).classList.add("show");
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showResult() {
+        nextPage(4);
+        let sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+        let firstJob = jobNames[sorted[0][0]];
+        let secondJob = jobNames[sorted[1][0]];
+        
+        document.getElementById("result").innerHTML = `
+            🥇 主要適合：${firstJob}<br>
+            ✨ 次要潛力：${secondJob}<br>
+            <span style="font-size:14px; color:#666; font-weight:normal;">(根據你的選擇，${firstJob} 的權重最高！)</span>
+        `;
+    }
 </script>
 
 </body>
