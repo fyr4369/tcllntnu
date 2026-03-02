@@ -1,97 +1,146 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>台文特有種，你是哪一種</title>
-    <style>
-        /* 基礎設定：確保間距計算正確 */
-        * { box-sizing: border-box; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>台文特有種，你是哪一種？</title>
 
-        body { 
-            background-color: #f7f3ee; 
-            font-family: "Noto Sans TC", sans-serif; 
-            line-height: 1.6; 
-            color: #333; 
-            margin: 0; 
-            padding: 10px; 
-        }
+<style>
 
-        /* 響應式容器：電腦端 800px，手機端自動縮放 */
-        .page { 
-            max-width: 800px; 
-            width: 95%;
-            margin: 20px auto; 
-            padding: 30px; 
-            display: none; 
-            background: white; 
-            border-radius: 15px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
-        }
+/* ===============================
+   全域設定
+================================ */
+* { box-sizing: border-box; }
 
-        .page h1, .page h2, .page h3 { text-align: center; color: #4a4a4a; }
-        
-        /* 標題字體響應式調整 */
-        h1 { font-size: 1.8rem; }
-        h2 { font-size: 1.5rem; }
+body {
+  background-color: #f7f3ee;
+  font-family: "Noto Sans TC", sans-serif;
+  margin: 0;
+  padding: 10px;
+  color: #333;
+}
 
-        .show { display: block; animation: fadeIn 0.4s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+/* ===============================
+   頁面區塊
+================================ */
+.page {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 30px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  display: none;
+}
 
-        .columns { display: flex; gap: 20px; flex-wrap: wrap; }
-        .column { flex: 1; min-width: 250px; background: #fffaf0; padding: 15px; border-radius: 10px; }
+.show { display: block; }
 
-        /* 選項與間距：保持你原始碼的設定 */
-        label { display: block; margin: 8px 0; cursor: pointer; font-size: 15px; }
-        label:hover { color: #8b4513; }
+/* ===============================
+   三欄排版
+================================ */
+.columns {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
 
-        /* 按鈕更新：圓角形狀與浮動效果 */
-        button { 
-            display: inline-block; 
-            margin: 10px; 
-            padding: 12px 30px; 
-            font-size: 16px; 
-            font-weight: bold;
-            cursor: pointer; 
-            border: none; 
-            border-radius: 50px; /* 圓角梭形 */
-            background-color: #8b4513; 
-            color: white; 
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
+.column {
+  flex: 1;
+  min-width: 250px;
+}
 
-        /* 按鈕浮動效果：滑鼠移入時上移並加深陰影 */
-        button:hover { 
-            background-color: #a0522d; 
-            transform: translateY(-3px); 
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-        }
-        
-        /* 按鈕點擊感 */
-        button:active {
-            transform: translateY(-1px);
-        }
+/* ===============================
+   選項與間距
+================================ */
+label {
+  display: block;
+  margin: 8px 0;
+  font-size: 14px;
+}
 
-        .btn-container { text-align: center; margin-top: 20px; }
-        #result-box { background: #fdf5e6; padding: 20px; border-radius: 10px; margin-top: 20px; border: 1px solid #e6dccf; }
+/* ===============================
+   按鈕圓角形狀與浮動效果
+================================ */
+button {
+  padding: 10px 25px;
+  margin: 10px;
+  border: none;
+  border-radius: 50px;
+  background-color: #8b4513;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
 
-        /* 手機端微調：確保內容不擁擠 */
-        @media (max-width: 600px) {
-            .page { padding: 20px; margin: 10px auto; }
-            .column { min-width: 100%; }
-            button { width: 80%; } /* 手機端按鈕稍微加寬好按 */
-        }
-    </style>
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+.btn-container {
+  text-align: center;
+}
+
+/* ===============================
+   結果頁樣式
+================================ */
+
+.result-title {
+  font-size: 26px;
+  font-weight: bold;
+  color: #8b4513;
+  text-align: center;
+}
+
+.result-sub {
+  font-size: 14px;
+  text-align: center;
+  color: #777;
+  margin-bottom: 20px;
+}
+
+.type-desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.career-block {
+  background: #fffaf0;
+  padding: 15px 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.career-title {
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #6b3e1e;
+}
+
+.career-list li {
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+</style>
 </head>
+
 <body>
 
+<!-- ===============================
+   首頁
+================================ -->
 <div class="page show" id="page0">
-    <h1>🎉 台文特有種，你是哪一種？ 🎉</h1>
-    <p style="text-align:center; font-size: 1.2em;">快來看看台文系的課程與資源，<br>發現你專屬的台文職涯路線！</p>
-    <div class="btn-container">
-        <button onclick="nextPage(1)">開始測驗</button>
-    </div>
+  <h1 style="text-align:center;">🎉 台文特有種，你是哪一種？</h1>
+  <p style="text-align:center;">快來看看台文系的課程與資源，<br>發現你專屬的台文職涯路線！
+  </p>
+  <div class="btn-container">
+    <button onclick="nextPage(1)">開始遊戲</button>
+  </div>
 </div>
 
 <div class="page" id="page1">
@@ -181,61 +230,174 @@
     </div>
 </div>
 
+<!-- ===============================
+   結果頁
+================================ -->
 <div class="page" id="page4">
-    <h2>🎉 你的台文未來角色</h2>
-    <div id="result-box">
-        <p id="result" style="text-align:center; font-size: 20px; font-weight: bold; color: #8b4513;"></p>
-    </div>
-    <div class="btn-container">
-        <button onclick="location.reload()">再玩一次</button>
-    </div>
+  <h2 style="text-align:center;">🎉 你的台文未來角色</h2>
+  <div id="result"></div>
+  <div class="btn-container">
+    <button onclick="location.reload()">再玩一次</button>
+  </div>
 </div>
 
 <script>
-    const jobNames = {
-        "R1": "學術研究",
-        "R2": "台語文教育",
-        "R3": "語文媒體傳播",
-        "R4": "文化創意行銷",
-        "R5": "文藝內容創作",
-        "R6": "文史推廣與文化行政",
-        "R7": "國際傳播交流"
-    };
 
-    let scores = { R1:0, R2:0, R3:0, R4:0, R5:0, R6:0, R7:0 };
+/* ===============================
+   各類型名稱
+================================ */
+const jobNames = {
+  R1:"學術研究",
+  R2:"台語文教育",
+  R3:"語文媒體傳播",
+  R4:"文化創意行銷",
+  R5:"文藝內容創作",
+  R6:"文史推廣與文化行政",
+  R7:"國際傳播交流"
+};
 
-    document.querySelectorAll("input[type=checkbox]").forEach(cb => {
-        cb.addEventListener("change", function() {
-            let data = JSON.parse(this.dataset.score);
-            for (let key in data) {
-                if (this.checked) {
-                    scores[key] += data[key];
-                } else {
-                    scores[key] -= data[key];
-                }
-            }
-        });
-    });
+/* ===============================
+   結果說明
+================================ */
+const jobDescriptions = {
 
-    function nextPage(n) {
-        document.querySelectorAll(".page").forEach(p => p.classList.remove("show"));
-        document.getElementById("page" + n).classList.add("show");
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+R1:`
+<div class="type-desc">
+你重視理論與文本分析，適合長期研究與知識建構。
+</div>
+<div class="career-block">
+<div class="career-title">🔬 可能職涯方向</div>
+<ul class="career-list">
+<li>大專院校教授</li>
+<li>學術機構研究人員</li>
+<li>研究助理</li>
+</ul>
+</div>`,
+
+R2:`
+<div class="type-desc">
+你擅長教學與語言實踐，重視文化傳承。
+</div>
+<div class="career-block">
+<div class="career-title">🍎 可能職涯方向</div>
+<ul class="career-list">
+<li>中小學台語教師</li>
+<li>台語教材編輯</li>
+<li>台語檢定出題</li>
+</ul>
+</div>`,
+
+R3:`
+<div class="type-desc">
+你擅長公共溝通與媒體表達。
+</div>
+<div class="career-block">
+<div class="career-title">🎙️ 可能職涯方向</div>
+<ul class="career-list">
+<li>新聞主播／記者</li>
+<li>電台主持</li>
+<li>節目企劃製作</li>
+</ul>
+</div>`,
+
+R4:`
+<div class="type-desc">
+你擅長文化轉譯與品牌推廣。
+</div>
+<div class="career-block">
+<div class="career-title">🎨 可能職涯方向</div>
+<ul class="career-list">
+<li>文創企劃</li>
+<li>出版編輯</li>
+<li>文化品牌行銷</li>
+</ul>
+</div>`,
+
+R5:`
+<div class="type-desc">
+你以創作為核心，擅長敘事與內容生產。
+</div>
+<div class="career-block">
+<div class="career-title">✍️ 可能職涯方向</div>
+<ul class="career-list">
+<li>文學創作者</li>
+<li>影視編劇</li>
+<li>圖文創作者</li>
+</ul>
+</div>`,
+
+R6:`
+<div class="type-desc">
+你關心文化制度與公共推廣。
+</div>
+<div class="career-block">
+<div class="career-title">🏛️ 可能職涯方向</div>
+<ul class="career-list">
+<li>博物館／文學館員</li>
+<li>文化行政人員</li>
+<li>地方文史工作者</li>
+</ul>
+</div>`,
+
+R7:`
+<div class="type-desc">
+你擅長跨文化與國際交流。
+</div>
+<div class="career-block">
+<div class="career-title">🌏 可能職涯方向</div>
+<ul class="career-list">
+<li>國際文化交流人員</li>
+<li>台灣文學外譯出版</li>
+<li>學界國際專員</li>
+</ul>
+</div>`
+};
+
+/* ===============================
+   重新計算機制（解決重複計分問題）
+================================ */
+function calculateScores(){
+  let scores={R1:0,R2:0,R3:0,R4:0,R5:0,R6:0,R7:0};
+
+  document.querySelectorAll("input[type=checkbox]:checked").forEach(cb=>{
+    let data=JSON.parse(cb.dataset.score);
+    for(let key in data){
+      scores[key]+=data[key];
     }
+  });
 
-    function showResult() {
-        nextPage(4);
-        let sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-        let firstJob = jobNames[sorted[0][0]];
-        let secondJob = jobNames[sorted[1][0]];
-        
-        document.getElementById("result").innerHTML = `
-            🥇 主要適合：${firstJob}<br>
-            ✨ 次要潛力：${secondJob}<br>
-            <span style="font-size:14px; color:#666; font-weight:normal;">(根據你的選擇，${firstJob} 的權重最高！)</span>
-        `;
-    }
+  return scores;
+}
+
+/* ===============================
+   頁面切換
+================================ */
+function nextPage(n){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("show"));
+  document.getElementById("page"+n).classList.add("show");
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ===============================
+   顯示結果
+================================ */
+function showResult(){
+  nextPage(4);
+
+  const scores=calculateScores();
+  const sorted=Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+
+  document.getElementById("result").innerHTML=`
+  <div class="result-title">🥇 ${jobNames[sorted[0][0]]}</div>
+  <div class="result-sub">你的核心台文職涯輪廓</div>
+  ${jobDescriptions[sorted[0][0]]}
+  <hr>
+  <div class="result-sub">
+  ✨ 同時具有 ${jobNames[sorted[1][0]]} 的潛力
+  </div>
+  `;
+}
+
 </script>
-
 </body>
 </html>
